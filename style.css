@@ -4,6 +4,10 @@
     height: 50px;
 }
 
+/* .cell:hover{
+    background-color: red;
+} */
+
 #container {
     display: flex;
     flex-flow: row wrap;
@@ -14,11 +18,14 @@
     
 }
 
-body {
-    /* background-color: black; */
-}
-
 h1{
     color: red;
     text-align: center;
+}
+
+button {
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    border: none;
 }
