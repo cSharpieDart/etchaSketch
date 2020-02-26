@@ -1,29 +1,41 @@
-//container to put the cells in
 const containerDiv = document.getElementById('container');
 
+createTable(10);
 
-createTable();
+changeCellColor("black");
 
-changeCellColor();
+function createTable(cellSize) {
 
-function createTable() {
-
-    for (let i = 0; i < 16 * 16; i++) {
-
+    for (let i = 0; i < cellSize * cellSize; i++) {
+        let boxSize = (500 / cellSize);
         let cell = document.createElement('div');
         cell.classList.add('cell');
+        cell.style.width = boxSize + "px";
+        cell.style.height = boxSize + "px";
         containerDiv.appendChild(cell);
     }
 
 }
 
-function changeCellColor() {
+function changeCellColor(cellColor) {
+
     let cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
-        cell.addEventListener("mouseover", (e) => {
-            cell.style.backgroundColor = "black";
-        });
 
+        if (cellColor == "black") {
+            cell.addEventListener("mouseover", (e) => {
+                cell.style.backgroundColor = cellColor;
+
+            });
+        }
+        else if (cellColor == "rainbow") {
+
+            let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+
+            cell.addEventListener("mouseover", (e) => {
+                cell.style.backgroundColor = "#" + randomColor;
+            });
+        }
     });
 }
 
@@ -32,7 +44,26 @@ function clearSketcher() {
     cells.forEach((cell) => {
 
         cell.style.backgroundColor = "white";
+    });
 
+    changeCellColor("black");
+}
 
+function deleteAllCells() {
+    let cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+        cell.parentNode.removeChild(cell);
     });
 }
+
+function changeGrid() {
+    let customCellSize = prompt("How many squares per side should the grid be? 150 max...");
+
+    if (customCellSize != null && customCellSize <= 150) {
+        deleteAllCells();
+        createTable(customCellSize);
+        changeCellColor("black");
+    }
+
+}
+
